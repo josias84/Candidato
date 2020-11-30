@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
+
+import controller.PessoaController;
+
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -119,15 +122,22 @@ public class ConcursoInscricao extends JFrame {
 				limpar();
 			}else {
 				if(e.getSource()==btnEnviar) {
-					//açao que eu quero que seja executada
 					String nome = txtNome.getText();
 					String cpf = txtCpf.getText();
 					if((nome.equals(""))||(cpf.equals(""))) {
 						JOptionPane.showMessageDialog(getContentPane(), "Todos os campos devem ser preenchidos!", "Atenção", 1);
 					}
 					else {
-						JOptionPane.showMessageDialog(getContentPane(), "DADOS CADASTRADOS COM SUCESSO!", "Atenção", 1);
+						PessoaController pcontrol = new PessoaController();
+						if(pcontrol.cadastrar(nome, cpf)==1) {
+							JOptionPane.showMessageDialog(getContentPane(), "DADOS CADASTRADOS COM SUCESSO!", "Atenção", 1);
+							limpar();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar");
 
+						}
+						
 					}
 				}
 			}
